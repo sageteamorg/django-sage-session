@@ -3,7 +3,10 @@ from .base import Encryptor
 try:
     from cryptography.fernet import Fernet
 except ImportError:
-    raise ImportError("Install `cryptography` package. Run `pip install cryptography`.")
+    raise ImportError(
+        "The `cryptography` package is required to use encryption features. "
+        "Please install it by running `pip install cryptography`."
+    )
 
 
 class FernetEncryptor(Encryptor):
