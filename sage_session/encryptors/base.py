@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 class Encryptor(ABC):
     """Abstract base class for encryption.
 
@@ -30,7 +29,7 @@ class Encryptor(ABC):
             The encrypted data.
 
         """
-        pass
+        raise NotImplementedError("Subclasses must implement this method.")
 
     @abstractmethod
     def decrypt(self, data: str) -> str:
@@ -47,4 +46,4 @@ class Encryptor(ABC):
             The decrypted data.
 
         """
-        pass
+        raise NotImplementedError("Subclasses must implement this method.")
