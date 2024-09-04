@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Encryptor(ABC):
     """Abstract base class for encryption.
 

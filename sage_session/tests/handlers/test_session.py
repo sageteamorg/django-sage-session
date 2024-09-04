@@ -2,9 +2,10 @@ import time
 from datetime import timedelta
 
 import pytest
-from django.http import HttpRequest
-from sage_session.handlers.session import SessionHandler
 from django.conf import settings
+from django.http import HttpRequest
+
+from sage_session.handlers.session import SessionHandler
 
 
 @pytest.fixture(autouse=True)
