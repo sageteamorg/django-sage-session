@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.test import Client
 from sage_session.models import UserSession
 from django.contrib.sessions.models import Session
+
+
 @pytest.mark.django_db
 class TestSessionViews:
 
@@ -17,7 +19,7 @@ class TestSessionViews:
     @pytest.fixture
     def user(self):
         """Fixture for creating a test user."""
-        return User.objects.create_user(username='testuser', password='testpass')
+        return User.objects.create_user(username="testuser", password="testpass")
 
     @pytest.fixture
     def session(self, user):
@@ -26,26 +28,28 @@ class TestSessionViews:
         UserSession.objects.create(
             user=user,
             session=session,
-            ip_address='192.168.1.1',
-            browser_info='Fake Browser 1.0',
-            device_info='Fake Device OS',
+            ip_address="192.168.1.1",
+            browser_info="Fake Browser 1.0",
+            device_info="Fake Device OS",
             expires_at=timezone.now() + timezone.timedelta(minutes=5),
         )
         return session
 
     def test_user_sessions_view_not_authenticated(self, client):
         """Test that an unauthenticated user is redirected from the user sessions view."""
-        response = client.get(reverse('usermanagement'))
+        response = client.get(reverse("usermanagement"))
         # Should be redirected to login page
         assert response.status_code == 302
-        assert '/login/' in response.url
+        assert "/login/" in response.url
 
     def test_delete_user_session_invalid_id(self, client, user):
         """Test that trying to delete a session with an invalid ID returns a 404."""
         # Log in the user
-        client.login(username='testuser', password='testpass')
+        client.login(username="testuser", password="testpass")
 
         # Call the delete session view with an invalid session ID
-        response = client.post(reverse('delete_user_session', kwargs={'session_id': 'invalid_session_key'}))
+        response = client.post(
+            reverse("delete_user_session", kwargs={"session_id": "invalid_session_key"})
+        )
 
         assert response.status_code == 302

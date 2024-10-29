@@ -8,6 +8,7 @@ from django.utils import timezone
 from sage_session.middleware import TrackUserActivityMiddleware
 from sage_session.models import UserSession
 
+
 @pytest.mark.django_db
 class TestTrackUserActivityMiddleware:
 
@@ -17,26 +18,29 @@ class TestTrackUserActivityMiddleware:
 
     @pytest.fixture
     def user(self):
-        return User.objects.create_user(username='testuser', password='testpass')
+        return User.objects.create_user(username="testuser", password="testpass")
 
     def add_session_to_request(self, request):
-        """ Helper function to add a session to the request object. """
+        """Helper function to add a session to the request object."""
         middleware = SessionMiddleware(lambda req: None)  # Pass get_response callable
         middleware.process_request(request)
         request.session.save()
 
     def create_django_session(self, user):
         """Helper function to create a unique Django session object."""
-        session = Session(session_key="fake_session_key", expire_date=timezone.now() + timezone.timedelta(minutes=5))
+        session = Session(
+            session_key="fake_session_key",
+            expire_date=timezone.now() + timezone.timedelta(minutes=5),
+        )
         session.save()
         return session
 
     def test_last_activity_update_authenticated_user(self, factory, user):
         # Simulate a request
-        request = factory.get('/')
+        request = factory.get("/")
         request.user = user
-        request.META['HTTP_USER_AGENT'] = 'Mozilla/5.0'
-        request.META['REMOTE_ADDR'] = '192.168.1.1'
+        request.META["HTTP_USER_AGENT"] = "Mozilla/5.0"
+        request.META["REMOTE_ADDR"] = "192.168.1.1"
 
         # Add session to the request
         session = self.create_django_session(user)
@@ -47,10 +51,11 @@ class TestTrackUserActivityMiddleware:
         session_manager = UserSession.objects.create(
             user=user,
             session=session,
-            ip_address='192.168.1.1',
-            browser_info='Mozilla 5.0',
-            device_info='Device',
-            last_activity=timezone.now() - timezone.timedelta(minutes=10)  # Old last activity
+            ip_address="192.168.1.1",
+            browser_info="Mozilla 5.0",
+            device_info="Device",
+            last_activity=timezone.now()
+            - timezone.timedelta(minutes=10),  # Old last activity
         )
 
         # Call the middleware
@@ -66,10 +71,10 @@ class TestTrackUserActivityMiddleware:
 
     def test_last_activity_not_updated_for_non_authenticated_user(self, factory):
         # Simulate a request
-        request = factory.get('/')
+        request = factory.get("/")
         request.user = AnonymousUser()  # Simulate non-authenticated user
-        request.META['HTTP_USER_AGENT'] = 'Mozilla/5.0'
-        request.META['REMOTE_ADDR'] = '192.168.1.1'
+        request.META["HTTP_USER_AGENT"] = "Mozilla/5.0"
+        request.META["REMOTE_ADDR"] = "192.168.1.1"
 
         # Add session to the request
         session = self.create_django_session(None)
@@ -83,13 +88,12 @@ class TestTrackUserActivityMiddleware:
         # Ensure no session manager record exists for a non-authenticated user
         assert UserSession.objects.filter(session=session).count() == 0
 
-
     def test_last_activity_update_when_no_session_manager(self, factory, user):
         # Simulate a request
-        request = factory.get('/')
+        request = factory.get("/")
         request.user = user
-        request.META['HTTP_USER_AGENT'] = 'Mozilla/5.0'
-        request.META['REMOTE_ADDR'] = '192.168.1.1'
+        request.META["HTTP_USER_AGENT"] = "Mozilla/5.0"
+        request.META["REMOTE_ADDR"] = "192.168.1.1"
 
         # Add session to the request
         session = self.create_django_session(user)
