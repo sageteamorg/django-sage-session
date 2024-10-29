@@ -7,20 +7,21 @@ from django.contrib.gis.geoip2 import GeoIP2
 
 logger = logging.getLogger(__name__)
 
+
 class SessionBackend:
     """
-    A utility class responsible for managing and updating session-related data, 
-    including user IP address, browser, and device information. This class 
-    ensures that the session data is tracked and updated with relevant 
+    A utility class responsible for managing and updating session-related data,
+    including user IP address, browser, and device information. This class
+    ensures that the session data is tracked and updated with relevant
     information such as geographic location, device details, and time.
     """
 
     @staticmethod
     def create_or_update_session(request, expiry_time):
         """
-        Creates or updates a session for the authenticated user by extracting 
-        information such as the IP address, geographic location (city and 
-        country), browser information, and device information. The session 
+        Creates or updates a session for the authenticated user by extracting
+        information such as the IP address, geographic location (city and
+        country), browser information, and device information. The session
         expiration time is also set.
         """
         g = GeoIP2()
@@ -52,7 +53,7 @@ class SessionBackend:
     @staticmethod
     def get_browser_info(user_agent):
         """
-        Extracts and returns the browser information from the `User-Agent` 
+        Extracts and returns the browser information from the `User-Agent`
         string.
         """
         ua = parse(user_agent)
@@ -61,7 +62,7 @@ class SessionBackend:
     @staticmethod
     def get_device_info(user_agent):
         """
-        Extracts and returns the device and operating system (OS) information 
+        Extracts and returns the device and operating system (OS) information
         from the `User-Agent` string.
         """
         ua = parse(user_agent)

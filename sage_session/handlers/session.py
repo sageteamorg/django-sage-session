@@ -58,9 +58,7 @@ class SessionHandler:
                 "lifespan": lifespan.total_seconds(),
             }
         except Exception as e:
-            logger.error(
-                "Error encrypting session data for key %s: %s", key, str(e)
-            )
+            logger.error("Error encrypting session data for key %s: %s", key, str(e))
 
     def get(self, key: str, decrypt=True) -> Optional[str]:
         """Retrieves, decrypts, and returns the value of a session variable if
@@ -79,7 +77,8 @@ class SessionHandler:
                     )
                 except InvalidToken:
                     logger.error(
-                    "Invalid token for session key %s. Possible data tampering.", key
+                        "Invalid token for session key %s. Possible data tampering.",
+                        key,
                     )
             else:
                 self.delete(key)
@@ -103,7 +102,9 @@ class SessionHandler:
         self.delete(key)
         if logout_user:
             logout(self.request)
-            messages.info(self.request, "Your session has expired. Please log in again.")
+            messages.info(
+                self.request, "Your session has expired. Please log in again."
+            )
             logger.info(f"Session {key} expired for user {self.request.user}.")
 
     def refresh(self, key: str, lifespan=timedelta(minutes=10)) -> bool:
