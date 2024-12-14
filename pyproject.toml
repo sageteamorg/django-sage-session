@@ -11,6 +11,9 @@ license = "MIT"
 readme = "README.md"
 keywords = [ "django", "sessions", "session_management"]
 repository = "https://github.com/sageteamorg/django-sage-session"
+packages = [
+  { include = "sage_session" },
+]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Programming Language :: Python",
