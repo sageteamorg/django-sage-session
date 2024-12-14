@@ -4,7 +4,7 @@ requires = [ "poetry-core" ]
 
 [tool.poetry]
 name = "django-sage-session"
-version = "0.1.1"
+version = "0.1.2"
 description = "Package for handling sessions and session management"
 authors = ["Sepehr Akbarzadeh <sepehr@sageteam.org>","Radin Ghahremani <radin@sageteam.org>"]
 license = "MIT"
