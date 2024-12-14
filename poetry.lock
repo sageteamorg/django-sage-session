@@ -788,13 +788,13 @@ python-ipware = ">=2.0.3"
 
 [[package]]
 name = "django-sage-tools"
-version = "0.2.2"
+version = "0.3.5"
 description = "Reusable, generic mixins for Django"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "django_sage_tools-0.2.2-py3-none-any.whl", hash = "sha256:9244160056dd3907ac85e7888665ed7eed93b0fc2780e444e2b29eee0024372a"},
-    {file = "django_sage_tools-0.2.2.tar.gz", hash = "sha256:b8b87e1c950b16a73ae4797ee0ac0383a34cedb4fb432143c4913054007aeb14"},
+    {file = "django_sage_tools-0.3.5-py3-none-any.whl", hash = "sha256:e511bcc8f682402d6710e0755dedc622c00bc78d0537d81f3997203ab65fde68"},
+    {file = "django_sage_tools-0.3.5.tar.gz", hash = "sha256:c825f80ca2bc10b2c61ad5ab3176d32cc66d324886eaaf8fdb2362d1bd0379f8"},
 ]
 
 [package.dependencies]
@@ -2920,4 +2920,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4.0"
-content-hash = "daefbe7f8e4925aadc7079208f9fb1a8e2ae3ef8d962ff64a0cf602001b565e4"
+content-hash = "f003c4de7aefd707fa5e7e91679f179c01665c2485a06d624f38974b62081e41"
