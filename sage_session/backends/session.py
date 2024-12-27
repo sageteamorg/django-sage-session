@@ -29,8 +29,31 @@ class SessionBackend:
         ip_address, is_routable = get_client_ip(request)
 
         if ip_address in ["127.0.0.1", "localhost"] or not is_routable:
-            city = "Local"
-            country = "Local Network"
+            city = {
+                "accuracy_radius": None,
+                "city": "Local",
+                "continent_code": None,
+                "continent_name": None,
+                "country_code": None,
+                "country_name": "Local Network",
+                "dma_code": None,
+                "is_in_european_union": None,
+                "latitude": None,
+                "longitude": None,
+                "metro_code": None,
+                "postal_code": None,
+                "region": None,
+                "region_code": None,
+                "region_name": None,
+                "time_zone": None,
+            }
+            country = {
+                "continent_code": None,
+                "continent_name": None,
+                "country_code": None,
+                "country_name": "Local Network",
+                "is_in_european_union": None,
+            }
         else:
             city = g.city(ip_address)
             country = g.country(ip_address)

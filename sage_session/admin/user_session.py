@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.sessions.models import Session
 from django.utils.translation import gettext_lazy as _
 from sage_session.models import UserSession
 
@@ -34,6 +35,10 @@ class UserSessionAdmin(admin.ModelAdmin):
         "browser_info",
         "device_info",
     )
+    autocomplete_fields = (
+        'user',
+        'session',
+    )
     fieldsets = (
         (
             _("Session Details"),
@@ -67,3 +72,9 @@ class UserSessionAdmin(admin.ModelAdmin):
     )
     date_hierarchy = "created_at"
     list_per_page = 20
+
+
+@admin.register(Session)
+class SessionAdmin(admin.ModelAdmin):
+    list_display = ['session_key', 'expire_date']
+    search_fields = ['session_key',]

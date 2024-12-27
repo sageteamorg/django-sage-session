@@ -787,6 +787,20 @@ files = [
 python-ipware = ">=2.0.3"
 
 [[package]]
+name = "django-jsonform"
+version = "2.23.1"
+description = "A user-friendly JSON editing form for Django admin."
+optional = false
+python-versions = ">=3.4"
+files = [
+    {file = "django_jsonform-2.23.1-py3-none-any.whl", hash = "sha256:cd5900c9f4f69d90a40b3a495aeb66bf43f562b82bfb64be40a78a51bbc04a11"},
+    {file = "django_jsonform-2.23.1.tar.gz", hash = "sha256:b75ea31263fbdde7190c1b02422587208359b19b1a9babc15ec3ed8260b26af9"},
+]
+
+[package.dependencies]
+django = ">=2.0"
+
+[[package]]
 name = "django-sage-tools"
 version = "0.3.5"
 description = "Reusable, generic mixins for Django"
@@ -2920,4 +2934,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4.0"
-content-hash = "f003c4de7aefd707fa5e7e91679f179c01665c2485a06d624f38974b62081e41"
+content-hash = "dc6062e22b2a7edacf4ad51011371b0e6fe81041a254918b66181a6f726d98a2"

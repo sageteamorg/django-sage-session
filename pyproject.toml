@@ -4,7 +4,7 @@ requires = [ "poetry-core" ]
 
 [tool.poetry]
 name = "django-sage-session"
-version = "0.1.4"
+version = "0.1.5"
 description = "Package for handling sessions and session management"
 authors = ["Sepehr Akbarzadeh <sepehr@sageteam.org>","Radin Ghahremani <radin@sageteam.org>"]
 license = "MIT"
@@ -43,6 +43,7 @@ geoip2 = "^4.8.0"
 pytest-django = "^4.9.0"
 django-sage-tools = "^0.3.5"
 pylint-django = "^2.5.5"
+django-jsonform = "^2.23.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.5.5"

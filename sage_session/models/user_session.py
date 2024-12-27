@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.sessions.models import Session
+from django_jsonform.models.fields import JSONField
 from django.utils.translation import gettext_lazy as _
 
 from sage_tools.mixins.models import TimeStampMixin
@@ -105,6 +106,43 @@ class UserSession(TimeStampMixin):
     
     This model provides a powerful tool for extending session tracking and monitoring in Django, supporting both application-specific functionality and broader compliance and security objectives.
     """
+    CITY_JSON_SCHEMA = {
+        "type": "object",
+        "title": "City Information",
+        "properties": {
+            "accuracy_radius": {"type": "integer"},
+            "city": {"type": "string"},
+            "continent_code": {"type": "string"},
+            "continent_name": {"type": "string"},
+            "country_code": {"type": "string"},
+            "country_name": {"type": "string"},
+            "dma_code": {"type": ["integer", "null"]},
+            "is_in_european_union": {"type": "boolean"},
+            "latitude": {"type": "number"},
+            "longitude": {"type": "number"},
+            "metro_code": {"type": ["integer", "null"]},
+            "postal_code": {"type": "string"},
+            "region": {"type": "string"},
+            "region_code": {"type": "string"},
+            "region_name": {"type": "string"},
+            "time_zone": {"type": "string"},
+        },
+        "additionalProperties": False,
+    }
+
+    COUNTRY_JSON_SCHEMA = {
+        "type": "object",
+        "title": "Country Information",
+        "properties": {
+            "continent_code": {"type": "string"},
+            "continent_name": {"type": "string"},
+            "country_code": {"type": "string"},
+            "country_name": {"type": "string"},
+            "is_in_european_union": {"type": "boolean"},
+        },
+        "additionalProperties": False,
+    }
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -127,19 +165,19 @@ class UserSession(TimeStampMixin):
         db_comment="Stores the IP address of the device initiating the session (IPv4/IPv6).",
     )
 
-    city = models.CharField(
-        max_length=255,
-        blank=True,
+    city = JSONField(
+        schema=CITY_JSON_SCHEMA,
         null=True,
+        blank=True,
         verbose_name=_("City"),
         help_text=_("The city associated with the session's IP address. This is derived from geolocation data."),
         db_comment="Optional field to store city information based on the IP address.",
     )
 
-    country = models.CharField(
-        max_length=255,
-        blank=True,
+    country = JSONField(
+        schema=COUNTRY_JSON_SCHEMA,
         null=True,
+        blank=True,
         verbose_name=_("Country"),
         help_text=_("The country associated with the session's IP address. Derived from geolocation data."),
         db_comment="Optional field to store country information based on the IP address.",
